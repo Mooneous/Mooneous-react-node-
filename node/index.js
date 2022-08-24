@@ -6,6 +6,10 @@ const port = 5000;
 
 //Post모델 불러옴
 const { Post } = require('./model/postSchema.js');
+//스키마  모델을 불러오면 자동으로 mongoDB에 빈 컬랙션이 추가됨
+//초기 데이터가 들어갈 첫 document를 몽고DB상에서 직접 생성
+//{name: 'counter', communityNum: 1} 이때 숫자값을 Int32형식으로 생성
+const { Counter } = require('./model/counterSchema.js');
 
 app.use(express.static(path.join(__dirname, '../react/build')));
 
