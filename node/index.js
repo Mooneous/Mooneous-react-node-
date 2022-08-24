@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
 
+//Post모델 불러옴
+const { Post } = require('./model/postSchema.js');
+
 app.use(express.static(path.join(__dirname, '../react/build')));
 
 //클라이언트로부터 넘어오는 데이터를 전달받도록 설정
@@ -39,4 +42,17 @@ app.get('*', (req, res) => {
 //create
 app.post('/api/create', (req, res) => {
 	console.log(req.body);
+	const PostModel = new Post({
+		title: req.body.title,
+		content: req.body.content,
+	});
+
+	PostModel.save()
+		.then(() => {
+			res.json({ success: true });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.json({ success: false });
+		});
 });
