@@ -35,10 +35,3 @@ app.get('*', (req, res) => {
 	//서버에서 5000포트로 접속하면 static폴더로 지정되어 있는 build안쪽의 index.html을 화면에 내보냄
 	res.sendFile(path.join(__dirname, '../react/build/index.html'));
 });
-
-//react로부터 받은 요청처리
-app.post('/api/send', (req, res) => {
-	console.log('react로부터 들어온 요청');
-	console.log(req.body);
-	res.json({ success: true, result: req.body.name + '2' });
-});
