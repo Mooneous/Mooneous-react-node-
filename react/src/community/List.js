@@ -8,7 +8,7 @@ function List() {
 
 	useEffect(() => {
 		axios
-			.post('/api/read')
+			.post('/api/community/read')
 			.then((res) => {
 				if (res.data.success) {
 					console.log(res.data.communityList);

@@ -4,14 +4,13 @@ const mongoose = require('mongoose');
 const app = express();
 const port = 5000;
 
-//Post모델 불러옴
-const { Post } = require('./model/postSchema.js');
-const { Counter } = require('./model/counterSchema.js');
-
 app.use(express.static(path.join(__dirname, '../react/build')));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+//community 전용 라우터 연결
+app.use('/api/community', require('./router/communityRouter.js'));
 
 app.listen(port, () => {
 	console.log(`Server app listening on port ${port}`);
@@ -36,54 +35,4 @@ app.get('/', (req, res) => {
 });
 app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, '../react/build/index.html'));
-});
-
-//create
-app.post('/api/create', (req, res) => {
-	Counter.findOne({ name: 'counter' })
-		.exec()
-		.then((doc) => {
-			const PostModel = new Post({
-				title: req.body.title,
-				content: req.body.content,
-				communityNum: doc.communityNum,
-			});
-
-			//위에서 생성한 모델을 DB에 저장
-			PostModel.save().then(() => {
-				Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } }).then(() =>
-					res.json({ success: true })
-				);
-			});
-		})
-		.catch((err) => console.log(err));
-});
-
-//read
-app.post('/api/read', (req, res) => {
-	Post.find()
-		.exec()
-		.then((doc) => {
-			res.json({ success: true, communityList: doc });
-		})
-		.catch((err) => {
-			console.log(err);
-			res.json({ success: false });
-		});
-});
-
-//detail
-app.post('/api/detail', (req, res) => {
-	//params값을 Detail컴포넌트로부터 전달받아서
-	//Post모델로부터 해당 데이터 검색후 다시 반환
-	Post.findOne({ communityNum: req.body.num })
-		.exec()
-		.then((doc) => {
-			console.log(doc);
-			res.json({ success: true, detail: doc });
-		})
-		.catch((err) => {
-			console.log(err);
-			res.json({ success: false });
-		});
 });

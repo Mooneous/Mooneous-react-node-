@@ -16,7 +16,7 @@ function Detail() {
 	useEffect(() => {
 		//params값을 서버쪽에 전달해서 응답받은 데이터를 state에 저장
 		axios
-			.post('/api/detail', item)
+			.post('/api/community/detail', item)
 			.then((res) => {
 				if (res.data.success) {
 					console.log(res.data.detail);
