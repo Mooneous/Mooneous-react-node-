@@ -45,20 +45,28 @@ app.get('*', (req, res) => {
 
 //create
 app.post('/api/create', (req, res) => {
-	console.log(req.body);
-	const PostModel = new Post({
-		title: req.body.title,
-		content: req.body.content,
-	});
+	//Counter모델로부터 CommunityNum값을 찾아서 리액트에서 가져온 데이터에 추가
+	//이때 Counter모델에 findOne메서드로 찾을 데이터 조건 설정
+	Counter.findOne({ name: 'counter' })
+		.exec()
+		.then((doc) => {
+			//기존 클라이언트에서 받은 데이터에 카운터모델의 communityNum값을 추가 적용
+			const PostModel = new Post({
+				title: req.body.title,
+				content: req.body.content,
+				communityNum: doc.communityNum,
+			});
 
-	PostModel.save()
-		.then(() => {
-			res.json({ success: true });
+			//위에서 생성한 모델을 DB에 저장
+			PostModel.save().then(() => {
+				//성공적으로 Post모델이 저장되면 기존 카운터값을 다시 불러와서 communityNum값을 1증가
+				//name값이 counter인 다큐먼트를 찾아서 communityNum 1증가
+				Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } }).then(() =>
+					res.json({ success: true })
+				);
+			});
 		})
-		.catch((err) => {
-			console.log(err);
-			res.json({ success: false });
-		});
+		.catch((err) => console.log(err));
 });
 
 //read
