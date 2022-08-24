@@ -1,3 +1,4 @@
+import Layout from '../common/Layout';
 import axios from 'axios';
 import { useState } from 'react';
 
@@ -17,7 +18,7 @@ function Create() {
 	};
 
 	return (
-		<section>
+		<Layout name={'Post'}>
 			<label htmlFor='tit'>Title</label>
 			<br />
 
@@ -34,7 +35,7 @@ function Create() {
 				onChange={(e) => setCon(e.target.value)}></textarea>
 			<br />
 			<button onClick={handleCreate}>SEND</button>
-		</section>
+		</Layout>
 	);
 }
 

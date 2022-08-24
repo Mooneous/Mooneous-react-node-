@@ -1,13 +1,14 @@
 import { Routes, Route } from 'react-router-dom';
 
 import Header from './common/Header';
-import Main from './common/Header';
+import Main from './common/Main';
 import Create from './community/Create';
 import List from './community/List';
 
 function App() {
 	return (
 		<>
+			<Header />
 			{/*리액트라우터돔5버전은component,6버전은element */}
 			<Routes>
 				<Route path='/' element={<Main />} />
