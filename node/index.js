@@ -71,3 +71,19 @@ app.post('/api/read', (req, res) => {
 			res.json({ success: false });
 		});
 });
+
+//detail
+app.post('/api/detail', (req, res) => {
+	//params값을 Detail컴포넌트로부터 전달받아서
+	//Post모델로부터 해당 데이터 검색후 다시 반환
+	Post.findOne({ communityNum: req.body.num })
+		.exec()
+		.then((doc) => {
+			console.log(doc);
+			res.json({ success: true, detail: doc });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.json({ success: false });
+		});
+});
