@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Layout from '../common/Layout';
 import styled from 'styled-components';
@@ -9,6 +9,14 @@ const DetailWrap = styled.div`
 	padding: 40px;
 	background: #fff;
 	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.02);
+`;
+
+const BtnSet = styled.div`
+	margin-top: 20px;
+
+	button {
+		margin-left: 10px;
+	}
 `;
 
 function Detail() {
@@ -38,10 +46,19 @@ function Detail() {
 		<Layout name={'Detail'}>
 			{/* Detail스테이트에 값이 있을때에만 컨텐츠 내용 출력 */}
 			{Detail && (
-				<DetailWrap>
-					<h2>{Detail.title}</h2>
-					<p>{Detail.content}</p>
-				</DetailWrap>
+				<>
+					<DetailWrap>
+						<h2>{Detail.title}</h2>
+						<p>{Detail.content}</p>
+					</DetailWrap>
+
+					<BtnSet>
+						<button>
+							<Link to={`/edit/${Detail.communityNum}`}></Link>Edit
+						</button>
+						<button>Delete</button>
+					</BtnSet>
+				</>
 			)}
 		</Layout>
 	);
