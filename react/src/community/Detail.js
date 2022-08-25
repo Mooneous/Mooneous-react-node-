@@ -2,6 +2,14 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Layout from '../common/Layout';
+import styled from 'styled-components';
+
+const DetailWrap = styled.div`
+	width: 100%;
+	padding: 40px;
+	background: #fff;
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.02);
+`;
 
 function Detail() {
 	//라우터 파라미터로 전달되는 값을 받음
@@ -30,10 +38,10 @@ function Detail() {
 		<Layout name={'Detail'}>
 			{/* Detail스테이트에 값이 있을때에만 컨텐츠 내용 출력 */}
 			{Detail && (
-				<>
+				<DetailWrap>
 					<h2>{Detail.title}</h2>
 					<p>{Detail.content}</p>
-				</>
+				</DetailWrap>
 			)}
 		</Layout>
 	);
