@@ -2,6 +2,7 @@ import Layout from '../common/Layout';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import firebase from '../firebase';
 
 const BtnSet = styled.div`
 	margin-top: 20px;
@@ -13,6 +14,11 @@ function Join() {
 	const [Pwd1, setPwd1] = useState('');
 	const [Pwd2, setPwd2] = useState('');
 	const [Name, setName] = useState('');
+
+	const handleJoin = async () => {
+		if (!(Name && Email && Pwd1 && Pwd2)) return alert('모든 양식을 입력하세요.');
+		if (Pwd1 !== Pwd2) return alert('비밀번호 2개를 동일하게 입력하세요.');
+	};
 
 	return (
 		<Layout name={'Join'}>
@@ -42,7 +48,7 @@ function Join() {
 			/>
 			<BtnSet>
 				<button>가입취소</button>
-				<button>회원가입</button>
+				<button onClick={handleJoin}>회원가입</button>
 			</BtnSet>
 		</Layout>
 	);
