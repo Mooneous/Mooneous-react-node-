@@ -37,7 +37,7 @@ const Util = styled.ul`
 		margin-right: 20px;
 		a {
 			font: 14px/1 'arial';
-			color: #555;
+			color: #777;
 		}
 	}
 `;
