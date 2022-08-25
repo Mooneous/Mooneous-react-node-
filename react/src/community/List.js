@@ -14,6 +14,7 @@ const Item = styled.article`
 
 function List() {
 	const [List, setList] = useState([]);
+	const [Loaded, setLoaded] = useState(false);
 
 	useEffect(() => {
 		axios
@@ -27,18 +28,25 @@ function List() {
 			.catch((err) => console.log(err));
 	}, []);
 
+	useEffect(() => {
+		setLoaded(true);
+	}, [List]);
+
 	return (
 		<Layout name={'List'}>
-			{List.map((post) => {
-				return (
-					<Item key={post._id}>
-						<h2>
-							{/* 글 목록의 링크 url 글 고유번호를 params로 전달 */}
-							<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
-						</h2>
-					</Item>
-				);
-			})}
+			{Loaded ? (
+				List.map((post) => {
+					return (
+						<Item key={post._id}>
+							<h2>
+								<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
+							</h2>
+						</Item>
+					);
+				})
+			) : (
+				<p>Loading...</p>
+			)}
 		</Layout>
 	);
 }
