@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
+import GlobalStyle from './styles/GlobalStyle';
 
 import Header from './common/Header';
 import Main from './common/Main';
@@ -9,6 +10,7 @@ import Detail from './community/Detail';
 function App() {
 	return (
 		<>
+			<GlobalStyle />
 			<Header />
 			{/*리액트라우터돔5버전은component,6버전은element */}
 			<Routes>
