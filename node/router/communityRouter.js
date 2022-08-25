@@ -53,4 +53,24 @@ router.post('/detail', (req, res) => {
 		});
 });
 
+//edit
+router.post('/edit', (req, res) => {
+	const temp = {
+		title: req.body.title,
+		content: req.body.content,
+	};
+
+	console.log(temp);
+
+	Post.updateOne({ communityNum: req.body.num }, { $set: temp })
+		.exec()
+		.then(() => {
+			res.json({ success: true });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.json({ success: false });
+		});
+});
+
 module.exports = router;

@@ -1,13 +1,40 @@
 import Layout from '../common/Layout';
 import { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import styled from 'styled-components';
+
+const BtnSet = styled.div`
+	margin-top: 20px;
+`;
 
 function Edit() {
+	const navigate = useNavigate();
 	const params = useParams();
 	const [Detail, setDetail] = useState({});
 	const [Title, setTitle] = useState('');
 	const [Content, setContent] = useState('');
+
+	const handleUpdate = () => {
+		if (Title === '' || Content === '') return alert('모든항목을 입력하세요');
+
+		const item = {
+			title: Title,
+			content: Content,
+			num: params.num,
+		};
+
+		console.log(item);
+
+		axios.post('/api/community/edit', item).then((res) => {
+			if (res.data.success) {
+				alert('글수정이 완료되었습니다.');
+				navigate(`/detail/${params.num}`);
+			} else {
+				alert('글수정에 실패했습니다.');
+			}
+		});
+	};
 
 	useEffect(() => {
 		const item = { num: params.num };
@@ -45,6 +72,11 @@ function Edit() {
 				rows='3'
 				value={Content || ''}
 				onChange={(e) => setContent(e.target.value)}></textarea>
+
+			<BtnSet>
+				<button onClick={() => navigate(-1)}>cancel</button>
+				<button onClick={handleUpdate}>update</button>
+			</BtnSet>
 		</Layout>
 	);
 }

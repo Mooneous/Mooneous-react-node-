@@ -54,7 +54,7 @@ function Detail() {
 
 					<BtnSet>
 						<button>
-							<Link to={`/edit/${Detail.communityNum}`}></Link>Edit
+							<Link to={`/edit/${Detail.communityNum}`}>Edit</Link>
 						</button>
 						<button>Delete</button>
 					</BtnSet>
