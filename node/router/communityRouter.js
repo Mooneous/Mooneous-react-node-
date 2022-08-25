@@ -73,4 +73,17 @@ router.post('/edit', (req, res) => {
 		});
 });
 
+//delete
+router.post('/delete', (req, res) => {
+	Post.deleteOne({ communityNum: req.body.num })
+		.exec()
+		.then(() => {
+			res.json({ success: true });
+		})
+		.catch((err) => {
+			console.log(err);
+			res.json({ success: false });
+		});
+});
+
 module.exports = router;
