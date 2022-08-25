@@ -7,6 +7,8 @@ import Create from './community/Create';
 import List from './community/List';
 import Detail from './community/Detail';
 import Edit from './community/Edit';
+import Join from './user/Join';
+import Login from './user/Login';
 
 function App() {
 	return (
@@ -21,6 +23,8 @@ function App() {
 				{/* 라우터에 params설정 */}
 				<Route path='/detail/:num' element={<Detail />} />
 				<Route path='/edit/:num' element={<Edit />} />
+				<Route path='/join' element={<Join />} />
+				<Route path='/login' element={<Login />} />
 			</Routes>
 		</>
 	);

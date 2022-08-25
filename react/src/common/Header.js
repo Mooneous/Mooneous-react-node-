@@ -28,8 +28,22 @@ const Gnb = styled.ul`
 		}
 	}
 `;
+const Util = styled.ul`
+	position: absolute;
+	bottom: 50px;
+	left: 50px;
+	display: flex;
+	li {
+		margin-right: 20px;
+		a {
+			font: 14px/1 'arial';
+			color: #555;
+		}
+	}
+`;
 
 function Header() {
+	const activeStyle = { color: 'hotpink' };
 	return (
 		<HeaderWrap>
 			<Logo>
@@ -38,12 +52,29 @@ function Header() {
 
 			<Gnb>
 				<li>
-					<NavLink to='/list'>Show List</NavLink>
+					<NavLink to='/list' style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+						Show List
+					</NavLink>
 				</li>
 				<li>
-					<NavLink to='/create'>Write Post</NavLink>
+					<NavLink to='/create' style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+						Write Post
+					</NavLink>
 				</li>
 			</Gnb>
+
+			<Util>
+				<li>
+					<NavLink to='/login' style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+						Login
+					</NavLink>
+				</li>
+				<li>
+					<NavLink to='/join' style={({ isActive }) => (isActive ? activeStyle : undefined)}>
+						Join
+					</NavLink>
+				</li>
+			</Util>
 		</HeaderWrap>
 	);
 }
