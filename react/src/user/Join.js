@@ -18,6 +18,11 @@ function Join() {
 	const handleJoin = async () => {
 		if (!(Name && Email && Pwd1 && Pwd2)) return alert('모든 양식을 입력하세요.');
 		if (Pwd1 !== Pwd2) return alert('비밀번호 2개를 동일하게 입력하세요.');
+
+		let createdUser = await firebase.auth().createUserWithEmailAndPassword(Email, Pwd1);
+		await createdUser.user.updateProfile({ displayName: Name });
+		console.log(createdUser.user);
+		navigate('/login');
 	};
 
 	return (
