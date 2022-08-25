@@ -23,8 +23,8 @@ function Detail() {
 	const navigate = useNavigate();
 	//라우터 파라미터로 전달되는 값을 받음
 	const params = useParams();
-
 	const [Detail, setDetail] = useState(null);
+	const [Loaded, setLoaded] = useState(false);
 
 	const item = {
 		num: params.num,
@@ -57,10 +57,14 @@ function Detail() {
 			.catch((err) => console.log(err));
 	}, []);
 
+	useEffect(() => {
+		setLoaded(true);
+	}, [Detail]);
+
 	return (
 		<Layout name={'Detail'}>
 			{/* Detail스테이트에 값이 있을때에만 컨텐츠 내용 출력 */}
-			{Detail && (
+			{Detail && Loaded ? (
 				<>
 					<DetailWrap>
 						<h2>{Detail.title}</h2>
@@ -74,6 +78,8 @@ function Detail() {
 						<button onClick={handleDelete}>Delete</button>
 					</BtnSet>
 				</>
+			) : (
+				<p>Loading...</p>
 			)}
 		</Layout>
 	);
