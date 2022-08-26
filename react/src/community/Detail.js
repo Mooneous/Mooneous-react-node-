@@ -76,12 +76,14 @@ function Detail() {
 						<p>Writer : {Detail.writer.displayName}</p>
 					</DetailWrap>
 
-					<BtnSet>
-						<button>
-							<Link to={`/edit/${Detail.communityNum}`}>Edit</Link>
-						</button>
-						<button onClick={handleDelete}>Delete</button>
-					</BtnSet>
+					{user.uid === Detail.writer.uid && (
+						<BtnSet>
+							<button>
+								<Link to={`/edit/${Detail.communityNum}`}>Edit</Link>
+							</button>
+							<button onClick={handleDelete}>Delete</button>
+						</BtnSet>
+					)}
 				</>
 			) : (
 				<p>Loading...</p>

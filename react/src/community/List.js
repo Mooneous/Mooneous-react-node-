@@ -43,6 +43,8 @@ function List() {
 							</h2>
 							<br />
 							<p>Writer : {post.writer.displayName}</p>
+							<p>Posted : {post.createdAt.split('T')[0]}</p>
+							{post.createdAt !== post.updatedAt && <p>Updated : {post.updatedAt.split('T')[0]}</p>}
 						</Item>
 					);
 				})
