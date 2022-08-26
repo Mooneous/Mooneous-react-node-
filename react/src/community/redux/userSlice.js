@@ -23,5 +23,7 @@ export const userSlice = createSlice({
 	},
 });
 
+//reducer에서 store에 전달될 새로운 액션객체를 만들 함수 2개를 exoport
+//추후 Login컴포넌트에서 호출되어 firebase로 만들어진  user정보값을 액션객체로 반환해 리듀서에 전달해줌
 export const { loginUser, logoutUser } = userSlice.actions;
 export default userSlice.reducer;
