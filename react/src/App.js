@@ -25,11 +25,6 @@ function App() {
 		});
 	}, []);
 
-	useEffect(() => {
-		//firebase의 로그인된 유저정보를 제거해서 로그아웃 처리 (테스트 용도)
-		//firebase.auth().signOut();
-	}, []);
-
 	return (
 		<>
 			<GlobalStyle />
