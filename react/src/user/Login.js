@@ -1,3 +1,5 @@
+//npm i @reduxjs/toolkit
+//npm i react-redux
 import Layout from '../common/Layout';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
