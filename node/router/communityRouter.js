@@ -50,6 +50,7 @@ router.post('/read', (req, res) => {
 	Post.find()
 		.populate('writer')
 		.sort(sort)
+		.limit(req.body.count)
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, communityList: doc });
