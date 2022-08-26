@@ -40,6 +40,7 @@ router.post('/create', (req, res) => {
 //read
 router.post('/read', (req, res) => {
 	Post.find()
+		.populate('writer')
 		.exec()
 		.then((doc) => {
 			res.json({ success: true, communityList: doc });
@@ -53,6 +54,7 @@ router.post('/read', (req, res) => {
 //detail
 router.post('/detail', (req, res) => {
 	Post.findOne({ communityNum: req.body.num })
+		.populate('writer')
 		.exec()
 		.then((doc) => {
 			console.log(doc);

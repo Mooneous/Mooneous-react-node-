@@ -69,6 +69,8 @@ function Detail() {
 					<DetailWrap>
 						<h2>{Detail.title}</h2>
 						<p>{Detail.content}</p>
+						<br />
+						<p>Writer : {Detail.writer.displayName}</p>
 					</DetailWrap>
 
 					<BtnSet>

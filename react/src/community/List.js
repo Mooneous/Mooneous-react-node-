@@ -41,6 +41,8 @@ function List() {
 							<h2>
 								<Link to={`/detail/${post.communityNum}`}>{post.title}</Link>
 							</h2>
+							<br />
+							<p>Writer : {post.writer.displayName}</p>
 						</Item>
 					);
 				})
