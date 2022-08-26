@@ -2,7 +2,8 @@ import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
 import firebase from './firebase';
 import { useEffect } from 'react';
-import { loginUser, logouerUser } from './redux/userSlice';
+import { useDispatch } from 'react-redux';
+import { loginUser, logoutUser } from './redux/userSlice';
 
 import Header from './common/Header';
 import Main from './common/Main';
@@ -14,10 +15,13 @@ import Join from './user/Join';
 import Login from './user/Login';
 
 function App() {
+	const dispatch = useDispatch();
 	useEffect(() => {
 		//auth상태 변화를 감지해서 파라미터로 해당 상태값을 전달
 		firebase.auth().onAuthStateChanged((userInfo) => {
 			console.log('userInfo', userInfo);
+			if (userInfo === null) dispatch(logoutUser());
+			else dispatch(loginUser(userInfo.multiFactor.user));
 		});
 	}, []);
 
