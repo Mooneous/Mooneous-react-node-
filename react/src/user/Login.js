@@ -20,6 +20,7 @@ function Login() {
 		if (!(Email && Pwd)) return alert('모든값을 입력하세요.');
 
 		try {
+			//firebase쪽에 인수로 전달받은 이메일, 비번정보에 해당하는 유저가 있는지 확인후 있으면 상태값 변경요청하는 함수
 			await firebase.auth().signInWithEmailAndPassword(Email, Pwd);
 			navigate('/');
 		} catch (err) {

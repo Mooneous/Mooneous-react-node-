@@ -1,5 +1,8 @@
 import { Routes, Route } from 'react-router-dom';
 import GlobalStyle from './styles/GlobalStyle';
+import firebase from './firebase';
+import { useEffect } from 'react';
+import { loginUser, logouerUser } from './redux/userSlice';
 
 import Header from './common/Header';
 import Main from './common/Main';
@@ -11,6 +14,18 @@ import Join from './user/Join';
 import Login from './user/Login';
 
 function App() {
+	useEffect(() => {
+		//auth상태 변화를 감지해서 파라미터로 해당 상태값을 전달
+		firebase.auth().onAuthStateChanged((userInfo) => {
+			console.log('userInfo', userInfo);
+		});
+	}, []);
+
+	useEffect(() => {
+		//firebase의 로그인된 유저정보를 제거해서 로그아웃 처리 (테스트 용도)
+		//firebase.auth().signOut();
+	}, []);
+
 	return (
 		<>
 			<GlobalStyle />
