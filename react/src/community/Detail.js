@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import Layout from '../common/Layout';
 import styled from 'styled-components';
 
@@ -23,6 +24,8 @@ function Detail() {
 	const navigate = useNavigate();
 	//라우터 파라미터로 전달되는 값을 받음
 	const params = useParams();
+	const user = useSelector((store) => store.user);
+	console.log(user);
 	const [Detail, setDetail] = useState(null);
 	const [Loaded, setLoaded] = useState(false);
 
