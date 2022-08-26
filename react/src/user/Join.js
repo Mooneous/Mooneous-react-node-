@@ -33,11 +33,11 @@ function Join() {
 			displayName: createdUser.user.multiFactor.user.displayName,
 			uid: createdUser.user.multiFactor.user.uid,
 		};
+		firebase.auth().signOut();
 
 		//서버쪽에 post요청 보내기
 		axios.post('/api/user/join', item).then((res) => {
 			if (res.data.success) {
-				firebase.auth().signOut();
 				alert('회원가입이 완료되었습니다.');
 				navigate('/login');
 			} else {
