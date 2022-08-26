@@ -27,7 +27,6 @@ function Join() {
 		console.log(createdUser.user);
 		navigate('/login');
 
-		//firebase로부터 인증정보값이 넘어오면 해당 정보값을 다시 객체에 옮겨담기
 		const item = {
 			email: createdUser.user.multiFactor.user.email,
 			displayName: createdUser.user.multiFactor.user.displayName,

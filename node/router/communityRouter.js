@@ -4,24 +4,35 @@ const router = express.Router();
 //Post모델 불러옴
 const { Post } = require('../model/postSchema.js');
 const { Counter } = require('../model/counterSchema.js');
+const { User } = require('../model/userSchema.js');
 
 //create
 router.post('/create', (req, res) => {
+	const temp = req.body;
+
 	Counter.findOne({ name: 'counter' })
 		.exec()
 		.then((doc) => {
-			const PostModel = new Post({
-				title: req.body.title,
-				content: req.body.content,
-				communityNum: doc.communityNum,
-			});
+			//기존 게시글 temp객체에 현재 counter 모델의 communityNumr값을 추가
+			//{tite, content, uid, communityNum}
+			temp.communityNum = doc.communityNum;
 
-			//위에서 생성한 모델을 DB에 저장
-			PostModel.save().then(() => {
-				Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } }).then(() =>
-					res.json({ success: true })
-				);
-			});
+			//현재 로그인된 uid값에 해당하는 User모델의 document를 찾차 해당 ObjectID값을 temp객체의 witer키값에 저장
+			//{title, content, uid, coummunityNum, writer}
+			//해당 writer키값에는 User Model의  objectId에 해당하는 user정보를 통채로 참조시킴
+			User.findOne({ uid: temp.uid })
+				.exec()
+				.then((doc) => {
+					temp.writer = doc._id;
+
+					//위에서 만들어진 최종 temp객체값을 인수로 해서 Postmodel생성
+					const PostModel = new Post(temp);
+					PostModel.save().then(() => {
+						Counter.updateOne({ name: 'counter' }, { $inc: { communityNum: 1 } }).then(() =>
+							res.json({ success: true })
+						);
+					});
+				});
 		})
 		.catch((err) => console.log(err));
 });
