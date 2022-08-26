@@ -15,10 +15,14 @@ const Item = styled.article`
 function List() {
 	const [List, setList] = useState([]);
 	const [Loaded, setLoaded] = useState(false);
+	const [Sort, setSort] = useState('new');
 
 	useEffect(() => {
+		const item = {
+			sort: Sort,
+		};
 		axios
-			.post('/api/community/read')
+			.post('/api/community/read', item)
 			.then((res) => {
 				if (res.data.success) {
 					console.log(res.data.communityList);
@@ -26,7 +30,7 @@ function List() {
 				}
 			})
 			.catch((err) => console.log(err));
-	}, []);
+	}, [Sort]);
 
 	useEffect(() => {
 		setLoaded(true);
@@ -34,6 +38,8 @@ function List() {
 
 	return (
 		<Layout name={'List'}>
+			<button onClick={() => setSort('new')}>최신순</button>
+			<button onClick={() => setSort('old')}>게시순</button>
 			{Loaded ? (
 				List.map((post) => {
 					return (
